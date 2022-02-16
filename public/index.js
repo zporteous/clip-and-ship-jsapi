@@ -18,7 +18,7 @@ require([
     // authNamespace: "portal_oauth_inline",
     popup: false
   });
-  
+  const roleDiv = document.getElementById("role")
   esriId.registerOAuthInfos([info]);
 
   esriId
@@ -58,7 +58,7 @@ require([
           sortOrder: "desc",
           num: 20
         });
-        const roleDiv = document.getElementById("role")
+        
         const userIndicator = document.getElementById("user-indicator")
         userIndicator.username =  portal.user.username;
         signIn.style.display="none"
