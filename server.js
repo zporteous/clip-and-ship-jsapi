@@ -12,7 +12,7 @@ app.use(express.static('./public'))
 app.use(express.json());
 
 
-app.get('/', async (req,res) => {
+app.get('/clip-and-ship-calcite', async (req,res) => {
   
   res.send("hello from node")
 })
