@@ -27,8 +27,9 @@
           <h2>Clip and Ship tool @GHD</h2>
         </div>
         <div class="avatar">
-          <calcite-avatar></calcite-avatar>
-          <calcite-label>Sign In</calcite-label>
+          <calcite-avatar id="user-indicator"></calcite-avatar>
+          <calcite-label id="sign-in">Sign In</calcite-label>
+          <calcite-label id="sign-out" style="display:none">Sign Out</calcite-label>
         </div>
       </header>
       <div class="body-container">
@@ -83,6 +84,9 @@
                 </calcite-modal>
                 <calcite-label>After clicking submit, your job will join a queue, so the email may not come immediately. Submissions will be processed in the 
                   order they are received. Reach out to <strong>zach.porteous@ghd.com</strong> for more info...
+                </calcite-label>
+                <calcite-label>
+                  you organization role is: <span id="role"></span>
                 </calcite-label>
               </div>
             </calcite-tab>
