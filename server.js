@@ -12,10 +12,10 @@ app.use(express.static('./public'))
 app.use(express.json());
 
 
-app.get('/clip-and-ship-calcite', async (req,res) => {
+// app.get('/clip-calcite', async (req,res) => {
   
-  res.send("hello from node")
-})
+//   // res.send("index.html")
+// })
 
 
 app.listen(3000, function () {
