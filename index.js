@@ -127,7 +127,7 @@ require([
 
     var uploadStatus = document.getElementById("upload-status")
 
-    uploadShpBtn.addEventListener('calciteInputChange',(event) => {
+    uploadShpBtn.addEventListener('change',(event) => {
       const fileName = event.target.value.toLowerCase();
       sketch.layer.graphics=[];
       if (fileName.indexOf(".zip") !== -1) {
