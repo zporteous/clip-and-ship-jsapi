@@ -36,113 +36,83 @@
       </header>
       <div class="body-container">
         <div>
-          <calcite-tabs>
-            <calcite-tab-nav slot="tab-nav">
-                <calcite-tab-title active>Contours</calcite-tab-title>
-                <calcite-tab-title>Imagery</calcite-tab-title>
-            </calcite-tab-nav>
-            <!-- FIRST CALCITE TAB -->
-            <calcite-tab active>
-              <div class="side-panel">
-                <div>
-                  <h2>Follow the steps below to download your datasets </h2>
-                </div>
-                <div>
-                  <calcite-label> Choose an export format
-                    <calcite-radio-group id="export-format" appearance="outline" layout="vertical">
-                      <calcite-radio-group-item value="Shapefile" checked>Shapefile</calcite-radio-group-item>
-                      <calcite-radio-group-item value="File Geodatabase">File Geodatabase</calcite-radio-group-item>
-                      <calcite-radio-group-item value="DWG file">DWG file</calcite-radio-group-item>
-                    </calcite-radio-group>
-                  </calcite-label>
-                </div>
-                <div>
-                  <calcite-label>Draw your polygon in the map using the sketch tool...
-                    <calcite-icon icon="polygon-vertices"></calcite-icon>
-                  </calcite-label>
-                </div>
-                
-                <div>
-                  <calcite-label> Input your email
-                      <calcite-input id="email" placeholder="user@email.com"></calcite-input>
-                  </calcite-label>
-                </div>
-                <div>
-                  <calcite-label> Input your contour interval
-                      <calcite-input placeholder="1" value=1 type="number"></calcite-input>
-                  </calcite-label>
-                </div>
-                <div>
-                  <calcite-button color="blue" icon-end="submit" id="submit-contours">
-                    Submit
-                  </calcite-button>
-                </div>
-                <calcite-modal id="submit-modal-contours" background-color="grey" color="blue"
-                  disable-escape scale="l" width="s">
-                  <div slot="header" id="modal-title">Success!</div>
-                  <div slot="content">Your response has been successfully submitted. You should receive an email shortly 
-                    containing your data. 😁
+          <div class="side-panel">
+            <h3>Follow the steps below to download your datasets </h3>
+            <div id="major-radio-buttons">
+              <calcite-radio-button-group id="choose-dataset">
+                <calcite-label layout="inline">
+                    <calcite-radio-button checked value="Contours"></calcite-radio-button>Contours
+                </calcite-label>
+                <calcite-label layout="inline">
+                    <calcite-radio-button value="Rasters"></calcite-radio-button>Rasters
+                </calcite-label>
+            </calcite-radio-button-group>
+            </div>
+            <div id="export-format-div">
+              <calcite-label> Choose an export format
+                <calcite-radio-group id="export-format" appearance="outline" layout="horizontal">
+                  <calcite-radio-group-item value="Shapefile" checked>Shapefile</calcite-radio-group-item>
+                  <calcite-radio-group-item value="File Geodatabase">File Geodatabase</calcite-radio-group-item>
+                  <calcite-radio-group-item value="DWG file">DWG file</calcite-radio-group-item>
+                </calcite-radio-group>
+              </calcite-label>
+            </div>
+            <div id="raster-choices-div">
+              <calcite-label> Choose one or multiple products
+                <calcite-combobox disabled scale ="s" selection-mode="multi" id="export-format-raster">
+                  <calcite-combobox-item value="2022 Imagery" text-label="2022 Imagery"></calcite-combobox-item>
+                  <calcite-combobox-item value="LiDAR Point Cloud" text-label="LiDAR Point Cloud"></calcite-combobox-item>
+                  <calcite-combobox-item value="Multispectral Imagery" text-label="Multispectral Imagery"></calcite-combobox-item>
+                </calcite-combobox>
+              </calcite-label>
+            </div>
+            <div>
+              <calcite-label> Define an area
+                <calcite-radio-group id="draw-or-upload" appearance="outline" layout="horizontal">
+                  <calcite-radio-group-item value="draw" checked>Draw an AOI</calcite-radio-group-item>
+                  <calcite-radio-group-item value="upload">Upload Polygon Shapefile</calcite-radio-group-item>
+                </calcite-radio-group>
+              </calcite-label>
+            </div>
+            <div id="upload-ui">
+              <calcite-label> Upload a polygon shapefile
+                <form enctype="multipart/form-data" method="post" id="upload-shp">
+                  <div class="field">
+                    <input id="inFile" name="file" type="file"/>
                   </div>
-                </calcite-modal>
-                <calcite-label>After clicking submit, your job will join a queue, so the email may not come immediately. Submissions will be processed in the 
-                  order they are received. Reach out to <strong>zach.porteous@ghd.com</strong> for more info...
-                </calcite-label>
-                <calcite-label>
-                  you organization role is: <span id="role"></span>
-                </calcite-label>
+                </form>
+              </calcite-label>
+            </div>
+            <calcite-loader scale="s" id="upload-shp-status"></calcite-loader>
+            <div>
+              <calcite-label> Input your contour interval
+                <calcite-input id="contour-input" placeholder="1" value=1 type="number"></calcite-input>
+              </calcite-label>
+            </div>
+            <div>
+              <calcite-label> Input your email
+                <calcite-input id="email-input" placeholder="user@email.com"></calcite-input>
+              </calcite-label>
+            </div>
+            <div>
+              <calcite-button round color="blue" icon-end="submit" id="submit-contours">
+                Submit
+              </calcite-button>
+            </div>
+            <calcite-modal id="submit-modal-contours" background-color="grey" color="blue"
+              disable-escape scale="l" width="s">
+              <div slot="header" id="modal-title">Success!</div>
+              <div slot="content">Your response has been successfully submitted. You should receive an email shortly 
+                containing your data. 😁
               </div>
-            </calcite-tab>
-            <!-- SECOND CALCITE TAB -->
-            <calcite-tab>
-              <div class="side-panel">
-                <div>
-                  <h2>Follow the steps below to download your datasets </h2>
-                </div>
-                <div>
-                  
-                    <calcite-label> Data Box 1
-                      <calcite-checkbox scale="l" id="imagery-product1" value="1"> </calcite-checkbox>
-                    </calcite-label>
-                    <calcite-label> Data Box 2
-                      <calcite-checkbox scale="l" id="imagery-product2" value="2"> </calcite-checkbox>
-                    </calcite-label>
-                    <calcite-label> Data Box 3
-                      <calcite-checkbox scale="l" id="imagery-product1" value="3"> </calcite-checkbox>
-                    </calcite-label>
-                  
-                </div>
-                <calcite-label>Draw your polygon in the map using the sketch tool...
-                  <calcite-icon icon="polygon-vertices"></calcite-icon>
-                </calcite-label>
-                <div>
-                  <calcite-label> Input your email
-                      <calcite-input id="email" placeholder="user@email.com"></calcite-input>
-                  </calcite-label>
-                </div>
-                <div>
-                  <calcite-label> Input cell size
-                      <calcite-input placeholder="5" value=45 type="number"></calcite-input>
-                  </calcite-label>
-                </div>
-                <div>
-                  <calcite-button color="blue" icon-end="submit" id="submit-imagery">
-                    Submit
-                  </calcite-button>
-                </div>
-                <calcite-modal id="submit-modal-imagery" background-color="grey" color="blue"
-                  disable-escape scale="l" width="s">
-                  <div slot="header" id="modal-title">Imagery Job Success!</div>
-                  <div slot="content">Your response has been successfully submitted. You should receive an email shortly 
-                    containing your data. 😁
-                  </div>
-                </calcite-modal>
-                <calcite-label>After clicking submit, your job will join a queue, so the email may not come immediately. Submissions will be processed in the 
-                  order they are received. Reach out to <strong>zach.porteous@ghd.com</strong> for more info...
-                </calcite-label>
-              </div>
-            </calcite-tab>
-          </calcite-tabs>
-          
+            </calcite-modal>
+            <calcite-label>After clicking submit, your job will join a queue, so the email may not come immediately. Submissions will be processed in the 
+              order they are received. Reach out to <strong>zach.porteous@ghd.com</strong> for more info...
+            </calcite-label>
+            <calcite-label>
+              you organization role is: <span id="role"></span>
+            </calcite-label>
+          </div>
         </div>
         <div>
           <div id="map-view" class="map-view"></div>

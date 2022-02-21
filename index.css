@@ -44,7 +44,7 @@ body {
   display:grid;
   grid-template-rows: auto;
   grid-gap:1rem;
-  margin-top: 30px;
+  /* margin-top: 10px; */
 }
 
 .footer {
@@ -67,4 +67,19 @@ body {
   text-align:center;
   cursor:default;
 }
+
+.disabled {
+  opacity:.4;
+}
+
+#contour-input {
+  max-width:100px;
+}
+
+#email-input {
+  max-width:200px;
+}
+
+
+
 
