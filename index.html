@@ -78,12 +78,12 @@
               <calcite-label> Upload a polygon shapefile
                 <form enctype="multipart/form-data" method="post" id="upload-shp">
                   <div class="field">
-                    <input id="inFile" name="file" type="file"/>
+                    <calcite-input disabled id="inFile" name="file" type="file"/>
                   </div>
                 </form>
               </calcite-label>
+              <calcite-label id="upload-status"></calcite-label>
             </div>
-            <calcite-loader scale="s" id="upload-shp-status"></calcite-loader>
             <div>
               <calcite-label> Input your contour interval
                 <calcite-input id="contour-input" placeholder="1" value=1 type="number"></calcite-input>

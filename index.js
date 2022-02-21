@@ -104,37 +104,37 @@ require([
     // action button for draw + upload
     var drawOrUpload = document.getElementById("draw-or-upload")
     var uploadShpBtn = document.getElementById("upload-shp")
-    var uploadLoading = document.getElementById("upload-shp-status")
+    var inputButton = document.getElementById("inFile")
     var uploadUi = document.getElementById("upload-ui")
     uploadUi.style.opacity=.4;
     uploadShpBtn.disabled=true;
 
-    drawOrUpload.addEventListener('click', switchOptions)
-    function switchOptions(){
+    drawOrUpload.addEventListener('calciteRadioGroupChange', (value)=>{
+      console.log("changed")
       map.layers.removeAll();
-      if(drawOrUpload.selectedItem.value === "upload") {
+      if(value.detail === "draw") {
         map.layers.add(graphicsLayer)
         sketch.layer.graphics=[];
         sketch.visible=true;
         uploadUi.style.opacity=.4;
-      } else if (drawOrUpload.selectedItem.value === "draw") {
+        inputButton.disabled=true;
+      } else if (value.detail === "upload") {
         sketch.visible=false;
-        uploadShpBtn.disabled=false;
+        inputButton.disabled=false;
         uploadUi.style.opacity=1;
       }
-    }
+    })
 
-    uploadShpBtn.addEventListener('change',(event) => {
-      console.log("file event firing...")
+    var uploadStatus = document.getElementById("upload-status")
+
+    uploadShpBtn.addEventListener('calciteInputChange',(event) => {
       const fileName = event.target.value.toLowerCase();
       sketch.layer.graphics=[];
       if (fileName.indexOf(".zip") !== -1) {
-        uploadShpBtn.loading = true;
+        inputButton.loading = true;
         generateFeature(fileName);
-        console.log("generate feature called...")
       } else {
-        document.getElementById("upload-shp-status").innerHTML =
-          '<p style="color:red">Add shapefile as .zip file</p>';
+        uploadStatus.innerHTML="File must be shp."
       }
     })
 
@@ -169,7 +169,7 @@ require([
       };
 
       // use the REST generate operation to generate a feature collection from the zipped shapefile
-      let portalUrl ="https://www.arcgis.com"
+      let portalUrl ="https://zjp.maps.arcgis.com"
       request(portalUrl + "/sharing/rest/content/features/generate", {
         query: myContent,
         body: document.getElementById("upload-shp"),
@@ -205,7 +205,7 @@ require([
         // associate the feature with the popup on click to enable highlight and zoom to
       });
       map.addMany(layers);
-      uploadLoading.active = false;
+      inputButton.loading = false;
       view.goTo(sourceGraphics).catch((error) => {
         if (error.name != "AbortError") {
           console.error(error);
