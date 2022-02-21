@@ -129,7 +129,6 @@ require([
       const fileName = event.target.value.toLowerCase();
       sketch.layer.graphics=[];
       if (fileName.indexOf(".zip") !== -1) {
-        //is file a zip - if not notify user
         uploadShpBtn.loading = true;
         generateFeature(fileName);
         console.log("generate feature called...")
@@ -170,7 +169,7 @@ require([
       };
 
       // use the REST generate operation to generate a feature collection from the zipped shapefile
-      let portalUrl ="https://www.zjp.maps.arcgis.com"
+      let portalUrl ="https://www.arcgis.com"
       request(portalUrl + "/sharing/rest/content/features/generate", {
         query: myContent,
         body: document.getElementById("upload-shp"),
