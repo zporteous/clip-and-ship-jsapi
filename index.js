@@ -110,7 +110,7 @@ require([
     uploadShpBtn.disabled=true;
 
     drawOrUpload.addEventListener('calciteRadioGroupChange', (value)=>{
-      console.log("changed")
+      
       map.layers.removeAll();
       if(value.detail === "draw") {
         map.layers.add(graphicsLayer)
@@ -243,16 +243,11 @@ require([
   function changeToLoadingContours() {
     submitButtonContours.loading = !submitButtonContours.loading;
     console.log(document.getElementById("export-format").selectedItem.value);
-    
     setTimeout(()=>{
-      console.log("loaded")
-
       submitButtonContours.loading = !submitButtonContours.loading;
       submitModalContours.active = !submitModalContours.active
     }, 1000)
-    console.log("hello")
     return
   }
-
 });
 
